@@ -9,7 +9,7 @@ async function run() {
   const args = getArgs();
   console.log(args);
 
-  const scenariosDir = args.morf_dir || '__morfogen';
+  const scenariosDir = args.morf_dir || '__morphogen/scenarios';
 
   console.log(scenariosDir);
 
