@@ -1,10 +1,9 @@
 {
   "name": "morphogen",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "bin": {
-    "todos": "index.js"
+    "morphogen": "bin/index.js"
   },
   "dependencies": {
     "chalk": "^4.1.2",

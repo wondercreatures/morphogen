@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
-const { getArgs, askFor } = require('./lib/cli.js')
+const { getArgs, askFor } = require('../lib/cli.js')
 
 
 async function run() {

@@ -1,13 +1,6 @@
 const path = require('path');
-
-const { exec, askFor, getArgs } = require('../../lib/cli')
-
-console.log('000-====');
-
-function capital(word) {
-  const wordLower = word.toLowerCase()
-  return wordLower[0].toUpperCase() + wordLower.substring(1);
-}
+const { exec, askFor, getArgs } = require('../../lib/cli');
+// Replace to const { exec, askFor, getArgs } = require('morphogen/lib/cli')
 
 const TPL = path.join(__dirname, '../templates/ReactPage');
 
@@ -28,8 +21,6 @@ async function Scenario() {
     TPL_PATH: TPL,
     OUTPUT_PATH: path.join(OUTPUT_PATH)
   });
-
-  // exec(config);
 }
 
 Scenario();
