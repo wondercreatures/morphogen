@@ -12,7 +12,7 @@
     "yargs": "^17.0.1"
   },
   "keywords": [
-    "MIT"
+    "MIT", "codegeneration", "dev-tools"
   ],
   "scripts": {
     "start": "node index.js"

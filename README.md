@@ -1,11 +1,17 @@
-# code-dna
+# Morfogen
+
+Codegeneration tool
+
+### ...README IN PROGRESS...
 
 ## Install
 
+npm:
 ```
 npm i morfogen
 ```
 
+yarn:
 ```
 yarn add morfogen
 ```
