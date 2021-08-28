@@ -1,4 +1,4 @@
-# Morfogen
+# morphogen
 
 Codegeneration tool
 
@@ -8,19 +8,19 @@ Codegeneration tool
 
 npm:
 ```
-npm i morfogen
+npm i morphogen
 ```
 
 yarn:
 ```
-yarn add morfogen
+yarn add morphogen
 ```
 
 ### Configurating
 
-- Create __morfogen directory inside of your project (or use --morf_dir for custom dir)
-- Create templates and scenario (see examples dir)
-- Run morfogen
+- Create __morphogen directory inside of your project (or use --morf_dir for custom dir)
+- Create templates and scenarios (see examples dir)
+- Run morphogen
 
 
 ## Run examples
@@ -28,6 +28,3 @@ yarn add morfogen
 ```
 node index.js --morf_dir examples/scenario tmp
 ```
-
-- ./scenario/types.js - scenario
-- ./output-types - output dir
