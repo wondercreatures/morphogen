@@ -1,6 +1,6 @@
 {
   "name": "morphogen",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "bin": {
     "morphogen": "bin/index.js"
@@ -15,6 +15,10 @@
   ],
   "scripts": {
     "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wondercreatures/morphogen.git"
   },
   "author": "Yuri Taratorkin",
   "devDependencies": {

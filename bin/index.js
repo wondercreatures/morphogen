@@ -7,15 +7,12 @@ const { getArgs, askFor } = require('../lib/cli.js')
 
 async function run() {
   const args = getArgs();
-  console.log(args);
 
   const scenariosDir = args.morf_dir || '__morphogen/scenarios';
 
   console.log(scenariosDir);
 
   const elements = fs.readdirSync(scenariosDir);
-
-  console.log(elements)
 
   elements.forEach((s, n) => {
     console.log(`${chalk.grey(`[${n}]`)} ${chalk.green(s)}`)
