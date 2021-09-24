@@ -1,5 +1,5 @@
 const path = require('path');
-const { exec, askFor, getArgs } = require('../../lib/cli');
+const { exec, askFor, getArgs } = require('../../dist/cli');
 // Replace to const { exec, askFor, getArgs } = require('morphogen/lib/cli')
 
 const TPL = path.join(__dirname, '../templates/ReactPage');
@@ -17,9 +17,10 @@ async function Scenario() {
   const PageName = await askFor('Page name')
 
   exec({
-    PageName,
     TPL_PATH: TPL,
     OUTPUT_PATH: path.join(OUTPUT_PATH)
+  },{
+    PageName,
   });
 }
 
