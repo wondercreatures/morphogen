@@ -2,15 +2,12 @@
 const fs = require('fs');
 const path = require('path');
 const chalk = require('chalk');
-const { getArgs, askFor } = require('../lib/cli.js')
-
+const { getArgs, askFor } = require('../dist/cli.js')
 
 async function run() {
   const args = getArgs();
 
   const scenariosDir = args.morf_dir || '__morphogen/scenarios';
-
-  console.log(scenariosDir);
 
   const elements = fs.readdirSync(scenariosDir);
 
