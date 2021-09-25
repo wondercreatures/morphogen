@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "license": "MIT",
   "bin": {
-    "morphogen": "bin/index.js"
+    "morphogen": "lib/bin.js"
   },
   "dependencies": {
     "@types/jest": "^27.0.2",
