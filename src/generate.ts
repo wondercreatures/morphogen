@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as chalk from 'chalk';
 
 /* eslint-disable no-shadow */
-function renderTpl(path: FSPath, context: Context) {
+export function renderTpl(path: FSPath, context: Context) {
   const tmplContent = fs.readFileSync(path, 'utf8');
   return Eta.render(
     tmplContent,
