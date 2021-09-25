@@ -19,7 +19,7 @@
     "dev-tools"
   ],
   "scripts": {
-    "start": "node index.js",
+    "start": "node lib/bin.js",
     "build": "tsc",
     "test": "jest --config jestconfig.json"
   },
