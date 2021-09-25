@@ -28,7 +28,13 @@ function __getMockFileSystem() {
 }
 
 function readdirSync(directoryPath: string) {
-  return mockFiles[directoryPath] ? Object.keys(mockFiles[directoryPath]) : [];
+  const files = mockFiles[directoryPath] ? Object.keys(mockFiles[directoryPath]) : [];
+  const dirs = Object.keys(mockFiles).filter(dir => {
+    return path.dirname(dir) === directoryPath;
+  }).map(dir => dir.replace(directoryPath, ''))
+
+
+  return [...files, ...dirs];
 }
 
 function readFileSync(file: string, content: 'utf-8') {
@@ -48,7 +54,7 @@ function statSync(file: string) {
   const fileName = path.basename(file);
 
   return {
-    isDirectory: () => !fileName
+    isDirectory: () => mockFiles[file] ? true : false 
   }
 }
 

@@ -2,7 +2,7 @@ export type FSPath = string;
 export type FSItem = string;
 
 export interface Args {
-  morf_dir: FSPath,
+  d: FSPath,
 }
 
 export interface Config {
@@ -13,3 +13,14 @@ export interface Config {
 export type TplArgument = string;
 
 export type Context = Record<string, TplArgument>
+
+
+export enum FSItemType {
+  DIR = 'DIR',
+  FILE = 'FILE'
+}
+
+export type FilesList = Array<{
+  type: FSItemType
+  path: FSPath
+}>

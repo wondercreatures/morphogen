@@ -3,12 +3,12 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as chalk from 'chalk';
 
-import { getArgs, askFor } from './cli.js';
+import { getArgs, askFor } from './cli';
 
 async function run() {
   const args = getArgs();
 
-  const scenariosDir = args.morf_dir || '__morphogen/scenarios';
+  const scenariosDir = args.d || '__morphogen/scenarios';
 
   const elements: Array<string> = fs.readdirSync(scenariosDir);
 

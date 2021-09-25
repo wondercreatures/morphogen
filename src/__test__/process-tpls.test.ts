@@ -7,7 +7,8 @@ describe('processTpl test', () => {
   const MOCK_FILE_INFO = {
     '/dir/tpls/file1.html': `<html>/*=~ it.PageName */</html>`,
     '/dir/tpls/file2.html': `<html>/*=~ it.Title */</html>`,
-    '/dir/tpls/file3.html': `<b>123</b>`
+    '/dir/tpls/file3.html': `<b>123</b>`,
+    '/dir/tpls/dir/file3.html': `<b>/*=~ it.Content */</b>`, 
   };
 
   beforeEach(() => {
@@ -18,6 +19,7 @@ describe('processTpl test', () => {
     const expectedResult1 = `<html>SomeName</html>`;
     const expectedResult2 = `<html>Title</html>`;
     const expectedResult3 = `<b>123</b>`;
+    const expectedResult4 = `<b>Content text</b>`;
 
     const config: Config = {
       TPL_PATH: '/dir/tpls',
@@ -26,7 +28,8 @@ describe('processTpl test', () => {
 
     const context: Context = {
       PageName: 'SomeName',
-      Title: 'Title'
+      Title: 'Title',
+      Content: 'Content text'
     }
 
     processTemplatesDir(config, context);
@@ -35,5 +38,6 @@ describe('processTpl test', () => {
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file1.html']).toEqual(expectedResult1);
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file2.html']).toEqual(expectedResult2);
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file3.html']).toEqual(expectedResult3);
+    expect(FS_OUTPUT[config.OUTPUT_PATH + '/dir']['file3.html']).toEqual(expectedResult4);
   });
 });

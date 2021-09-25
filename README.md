@@ -29,5 +29,5 @@ yarn add morphogen
 ## Run examples
 
 ```
-node index.js --morf_dir examples/scenario tmp
+node index.js -d examples/scenario
 ```
