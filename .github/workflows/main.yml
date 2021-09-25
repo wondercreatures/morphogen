@@ -26,8 +26,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm test
+    - run: yarn install
+    - run: yarn test
     - run: npm run build --if-present
     - name: NPM Publish
       # You may pin to the exact commit or the version.
