@@ -26,7 +26,7 @@ export default function renderBlock(file: FSItem, config: Config, context: Conte
     
     return {
       outputPath: path.join(context[blockName]),
-      content: renderedFileWithBlock
+      content: renderedFileWithBlock + `/*=~ it.${blockName} */`
     }
 
   } else {

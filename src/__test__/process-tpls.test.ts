@@ -24,7 +24,7 @@ describe('processTpl test', () => {
     const expectedResult3 = `<b>123</b>`;
     const expectedResult4 = `<b>Content text</b>`;
     const expectedResult5 = `data`;
-    const expectedResult6 = 'text before vallll text after'
+    const expectedResult6 = 'text before vallll text after/*=~ it.BLOCK_NAME */'
 
     const config: Config = {
       TPL_PATH: '/dir/tpls',
