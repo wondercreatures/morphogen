@@ -17,7 +17,7 @@ export default function renderBlock(file: FSItem, config: Config, context: Conte
 
   if (blockName && context[blockName]) {
     const renderedFileWithBlock = renderTpl(context[blockName], {
-      [blockName]: renderedData
+      [blockName]: renderedData + `/*=~ it.${blockName} */`
     });
 
     if (typeof renderedFileWithBlock !== 'string') {
@@ -26,7 +26,7 @@ export default function renderBlock(file: FSItem, config: Config, context: Conte
     
     return {
       outputPath: path.join(context[blockName]),
-      content: renderedFileWithBlock + `/*=~ it.${blockName} */`
+      content: renderedFileWithBlock
     }
 
   } else {
