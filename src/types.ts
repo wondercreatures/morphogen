@@ -24,3 +24,9 @@ export type FilesList = Array<{
   type: FSItemType
   path: FSPath
 }>
+
+
+export interface WriteFileResult {
+  outputPath: FSPath,
+  content: string
+}

@@ -1,9 +1,11 @@
-import { Config, Context, FSItem, FSItemType, FSPath } from "./types";
+import { Config, Context, FSItem, FSItemType, FSPath, WriteFileResult } from "./types";
 import * as Eta from 'eta';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as chalk from 'chalk';
 import { fileWalker } from "./storage";
+import renderBlock from "./generators/renderBlock";
+import renderFileTpl from "./generators/renderFileTpl";
 
 /* eslint-disable no-shadow */
 export function renderTpl(path: FSPath, context: Context) {
@@ -21,7 +23,6 @@ export function renderTpl(path: FSPath, context: Context) {
 export function processTemplatesDir(config: Config, context: Context) {
   const { TPL_PATH, OUTPUT_PATH } = config;
 
-
   if (!fs.existsSync(OUTPUT_PATH)) {
     fs.mkdirSync(OUTPUT_PATH);
   }
@@ -30,10 +31,6 @@ export function processTemplatesDir(config: Config, context: Context) {
 
   elements.forEach((item) => {
     const { path: file, type } = item;
-    const tmplPath = path.join(TPL_PATH, file);
-    // console.log(chalk.bold(chalk.cyan('Processing:')), chalk.green(tmplPath));
-
-
     const processedFileName = Object.keys(context).reduce((res, prop) => {
       return res.replace(`__RNM__${prop}__`, context[prop]);
     }, file);
@@ -43,77 +40,16 @@ export function processTemplatesDir(config: Config, context: Context) {
       console.log(chalk.cyanBright('📁 Creating dir:'), chalk.greenBright(resultPath));
       fs.mkdirSync(resultPath)
     } else if (type === FSItemType.FILE) {
-      const resultPath = path.join(process.cwd(), OUTPUT_PATH, processedFileName);
-      const renderedData = renderTpl(tmplPath, context);
-
-      if (typeof renderedData === 'string') {
-
-        if (/__BLK__/.test(file)){
-          // Processing blocks
-          const groups = /__BLK__(.+)(__)/.exec(file);
-          const blockName = groups?.[1]
-
-          if (blockName && context[blockName]) {
-            const renderedFileWithBlock = renderTpl(context[blockName], {
-              [blockName]: renderedData
-            });
-
-            if (typeof renderedFileWithBlock === 'string') {
-              console.log(chalk.cyanBright('📄 Appending to:'), chalk.greenBright(path.join( OUTPUT_PATH, context[blockName])));
-              fs.writeFileSync(path.join( context[blockName]), renderedFileWithBlock);
-            }
-          }
-
-        } else {
-
-          console.log(chalk.cyanBright('📄 Writing to:'), chalk.greenBright(resultPath));
-          fs.writeFileSync(path.join(process.cwd(), OUTPUT_PATH, processedFileName), renderedData);
-        }
+      if (/__BLK__/.test(file)) {
+        const { outputPath, content } = renderBlock(file, config, context);
+        console.log(chalk.cyanBright('📄 Appending to:'), chalk.greenBright(outputPath));
+        fs.writeFileSync(outputPath, content);
       } else {
-        throw new Error('Wrong type of template render data');
+        const { outputPath, content } = renderFileTpl(file, config, context);
+        console.log(chalk.cyanBright('📄 Writing to:'), chalk.greenBright(outputPath));
+        fs.writeFileSync(outputPath, content);
       }
+
     }
   });
 }
-
-
-
-// export function processTemplatesDirOld(config: Config, context: Context) {
-//   // tplPath: FSPath, outputPath: FSPath
-//   const { TPL_PATH, OUTPUT_PATH } = config;
-
-//   console.log(fileWalker(TPL_PATH));
-
-//   const elements = fs.readdirSync(TPL_PATH);
-//   if (!fs.existsSync(OUTPUT_PATH)) {
-//     fs.mkdirSync(OUTPUT_PATH);
-//   }
-
-//   elements.forEach((file: FSItem) => {
-//     const tmplPath = path.join(TPL_PATH, file);
-//     console.log(chalk.bold(chalk.cyan('Processing:')), chalk.green(tmplPath));
-//     //const fileNameProcessed = file.
-//     const processedFileName = Object.keys(context).reduce((res, prop) => {
-//       return res.replace(`__${prop}__`, context[prop]);
-//     }, file);
-
-//     if (fs.statSync(tmplPath).isDirectory()) {
-//       processTemplatesDir({
-//         TPL_PATH: tmplPath,
-//         OUTPUT_PATH: path.join(OUTPUT_PATH, processedFileName)
-//       }, context);
-//     } else {
-//       const resultPath = path.join(process.cwd(), OUTPUT_PATH, processedFileName);
-
-//       console.log(chalk.cyanBright('Writing to:'), chalk.greenBright(resultPath));
-
-//       const renderedData = renderTpl(tmplPath, context);
-//       //console.log(renderedData);
-//       if (typeof renderedData === 'string') {
-//         fs.writeFileSync(path.join(process.cwd(), OUTPUT_PATH, processedFileName), renderedData);
-//       } else {
-//         throw new Error('Wrong type of template render data');
-//       }
-//     }
-//   });
-// }

@@ -1,6 +1,6 @@
 {
   "name": "morphogen",
-  "version": "1.1.1",
+  "version": "1.1.2-beta.0",
   "license": "MIT",
   "bin": {
     "morphogen": "lib/bin.js"
@@ -21,7 +21,8 @@
   "scripts": {
     "start": "node -r ts-node/register src/bin.ts -d examples/scenarios",
     "build": "tsc",
-    "test": "jest --config jestconfig.json"
+    "test": "jest --config jestconfig.json",
+    "install-self": "npm i -G"
   },
   "repository": {
     "type": "git",
