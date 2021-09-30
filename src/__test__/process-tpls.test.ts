@@ -8,7 +8,10 @@ describe('processTpl test', () => {
     '/dir/tpls/file1.html': `<html>/*=~ it.PageName */</html>`,
     '/dir/tpls/file2.html': `<html>/*=~ it.Title */</html>`,
     '/dir/tpls/file3.html': `<b>123</b>`,
-    '/dir/tpls/dir/file3.html': `<b>/*=~ it.Content */</b>`, 
+    '/dir/tpls/dir/file3.html': `<b>/*=~ it.Content */</b>`,
+    '/dir/tpls/__RNM__DIR_NAME__/file4.html': 'data',
+    '/dir/tpls/__BLK__BLOCK_NAME__.html': 'vallll',
+    '/dir/output/append-here.html': 'text before /*=~ it.BLOCK_NAME */ text after'
   };
 
   beforeEach(() => {
@@ -20,6 +23,8 @@ describe('processTpl test', () => {
     const expectedResult2 = `<html>Title</html>`;
     const expectedResult3 = `<b>123</b>`;
     const expectedResult4 = `<b>Content text</b>`;
+    const expectedResult5 = `data`;
+    const expectedResult6 = 'text before vallll text after'
 
     const config: Config = {
       TPL_PATH: '/dir/tpls',
@@ -29,7 +34,9 @@ describe('processTpl test', () => {
     const context: Context = {
       PageName: 'SomeName',
       Title: 'Title',
-      Content: 'Content text'
+      Content: 'Content text',
+      DIR_NAME: 'somename',
+      BLOCK_NAME: '/dir/output/append-here.html'
     }
 
     processTemplatesDir(config, context);
@@ -39,5 +46,7 @@ describe('processTpl test', () => {
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file2.html']).toEqual(expectedResult2);
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file3.html']).toEqual(expectedResult3);
     expect(FS_OUTPUT[config.OUTPUT_PATH + '/dir']['file3.html']).toEqual(expectedResult4);
+    expect(FS_OUTPUT[config.OUTPUT_PATH + '/somename']['file4.html']).toEqual(expectedResult5);
+    expect(FS_OUTPUT[config.OUTPUT_PATH]['append-here.html']).toEqual(expectedResult6);
   });
 });
