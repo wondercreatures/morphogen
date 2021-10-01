@@ -37,8 +37,10 @@ export function processTemplatesDir(config: Config, context: Context) {
 
     if (type === FSItemType.DIR) {
       const resultPath = path.join(process.cwd(), OUTPUT_PATH, processedFileName);
-      console.log(chalk.cyanBright('📁 Creating dir:'), chalk.greenBright(resultPath));
-      fs.mkdirSync(resultPath)
+      if (!fs.existsSync(resultPath)) {
+        console.log(chalk.cyanBright('📁 Creating dir:'), chalk.greenBright(resultPath));
+        fs.mkdirSync(resultPath);
+      }
     } else if (type === FSItemType.FILE) {
       if (/__BLK__/.test(file)) {
         const { outputPath, content } = renderBlock(file, config, context);
