@@ -1,5 +1,5 @@
 const path = require('path');
-const { exec, askFor, getArgs } = require('../../lib/cli');
+const { exec, askFor, getArgs } = require('../../src/cli');
 // Replace to const { exec, askFor, getArgs } = require('morphogen/lib/cli')
 
 const TPL = path.join(__dirname, '../templates/ReactPage');
