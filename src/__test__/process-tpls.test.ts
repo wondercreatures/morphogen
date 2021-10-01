@@ -11,7 +11,7 @@ describe('processTpl test', () => {
     '/dir/tpls/dir/file3.html': `<b>/*=~ it.Content */</b>`,
     '/dir/tpls/__RNM__DIR_NAME__/file4.html': 'data',
     '/dir/tpls/__BLK__BLOCK_NAME__.html': 'vallll',
-    '/dir/output/append-here.html': 'text before {BLOCK_NAME}text after',
+    '/dir/output/append-here.html': 'text before /*{BLOCK_NAME}*/text after',
   };
 
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('processTpl test', () => {
     const expectedResult3 = `<b>/*=~ it.BLOCK_NAME */</b>`;
     const expectedResult4 = `<b>Content text</b>`;
     const expectedResult5 = `data`;
-    const expectedResult6 = 'text before vallll{BLOCK_NAME}text after';
+    const expectedResult6 = 'text before vallll/*{BLOCK_NAME}*/text after';
 
     const config: Config = {
       TPL_PATH: '/dir/tpls',

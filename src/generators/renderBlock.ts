@@ -18,7 +18,7 @@ export default function renderBlock(file: FSItem, config: Config, context: Conte
 
   if (blockName && context[blockName]) {
     const blockText = fs.readFileSync(context[blockName], 'utf-8');
-    const renderedFileWithBlock = blockText.replace(`{${blockName}}`, renderedData + `{${blockName}}`);
+    const renderedFileWithBlock = blockText.replace(`/*{${blockName}}*/`, renderedData + `/*{${blockName}}*/`);
     // const renderedFileWithBlock = renderTpl(context[blockName], {
     //   [blockName]: renderedData + `/*=~ it.${blockName} */`
     // });
