@@ -12,6 +12,7 @@ describe('processTpl test', () => {
     '/dir/tpls/__RNM__DIR_NAME__/file4.html': 'data',
     '/dir/tpls/__BLK__BLOCK_NAME__.html': 'vallll',
     '/dir/output/append-here.html': 'text before /*{BLOCK_NAME}*/text after',
+    '/dir/tpls/__RNM__DIR_NAME__/__RNM__PageName__.html': 'data',
   };
 
   beforeEach(() => {
@@ -41,6 +42,8 @@ describe('processTpl test', () => {
 
     processTemplatesDir(config, context);
     const FS_OUTPUT = require('fs').__getMockFileSystem();
+
+    console.log(FS_OUTPUT);
 
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file1.html']).toEqual(expectedResult1);
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file2.html']).toEqual(expectedResult2);

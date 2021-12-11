@@ -32,7 +32,9 @@ export function processTemplatesDir(config: Config, context: Context) {
   elements.forEach((item) => {
     const { path: file, type } = item;
     const processedFileName = Object.keys(context).reduce((res, prop) => {
-      return res.replace(`__RNM__${prop}__`, context[prop]);
+      debugger;
+      return res.split(`__RNM__${prop}__`).join(context[prop]);
+      //return res.replace(`__RNM__${prop}__`, context[prop]);
     }, file);
 
     if (type === FSItemType.DIR) {

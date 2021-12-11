@@ -41,3 +41,13 @@ export function askFor<ARGUMENT_TYPE = TplArgument>(description: string, default
     })
   })
 }
+
+export async function getUserArg<ARGUMENT_TYPE = TplArgument>(name: string, description: string, defaultValue?: ARGUMENT_TYPE) {
+  const args = getArgs<Record<string, string | undefined>>();
+  const valueFromCli = args[name];
+  if (valueFromCli) {
+    return valueFromCli;
+  }
+  
+  return askFor(description, defaultValue);
+}

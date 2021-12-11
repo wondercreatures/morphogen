@@ -20,6 +20,7 @@
   ],
   "scripts": {
     "start": "node -r ts-node/register src/bin.ts -d examples/scenarios",
+    "start:debug": "node --inspect-brk -r ts-node/register src/bin.ts -d examples/scenarios",
     "build": "tsc",
     "test": "jest --config jestconfig.json",
     "test:watch": "jest --config jestconfig.json --watch",
