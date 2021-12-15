@@ -33,6 +33,6 @@ export default function renderBlock(file: FSItem, config: Config, context: Conte
     }
 
   } else {
-    throw new Error('Block config is not fined');
+    throw new Error(`Block config is not fined (${blockName})`);
   }
 }
