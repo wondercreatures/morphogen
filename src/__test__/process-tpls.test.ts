@@ -19,6 +19,10 @@ describe('processTpl test', () => {
     require('fs').__setMockFiles(MOCK_FILE_INFO);
   });
 
+  afterAll(() => {
+    require('fs').__cleanFs(MOCK_FILE_INFO);
+  });
+
   test('Test render basic template', () => {
     const expectedResult1 = `<html>SomeName</html>`;
     const expectedResult2 = `<html>Title</html>`;
@@ -42,8 +46,6 @@ describe('processTpl test', () => {
 
     processTemplatesDir(config, context);
     const FS_OUTPUT = require('fs').__getMockFileSystem();
-
-    console.log(FS_OUTPUT);
 
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file1.html']).toEqual(expectedResult1);
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file2.html']).toEqual(expectedResult2);

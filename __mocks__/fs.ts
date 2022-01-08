@@ -63,6 +63,10 @@ function writeFileSync(path: string, content: string) {
   __updateMockFile(path.replace(process.cwd(), ''), content);
 }
 
+function __cleanFs() {
+  mockFiles = {};
+}
+
 fs.__setMockFiles = __setMockFiles;
 fs.__getMockFileSystem = __getMockFileSystem;
 fs.readdirSync = readdirSync;
@@ -70,6 +74,7 @@ fs.readFileSync = readFileSync;
 fs.existsSync = existsSync;
 fs.writeFileSync = writeFileSync;
 fs.statSync = statSync;
+fs.__cleanFs = __cleanFs;
 
 
 module.exports = fs;

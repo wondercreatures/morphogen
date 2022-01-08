@@ -22,7 +22,7 @@
     "start": "node -r ts-node/register src/bin.ts -d examples/scenarios",
     "start:debug": "node --inspect-brk -r ts-node/register src/bin.ts -d examples/scenarios",
     "build": "tsc",
-    "test": "jest --config jestconfig.json",
+    "test": "jest --config jestconfig.json --runInBand",
     "test:watch": "jest --config jestconfig.json --watch",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "coverage": "npm test -- --coverage --watchAll=false",

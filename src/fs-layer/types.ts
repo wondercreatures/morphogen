@@ -2,9 +2,9 @@ import { FSPath } from "../types"
 
 type MkDir = (path: FSPath) => void;
 type FileExists = (path: FSPath) => boolean;
-type WriteFile = (path: FSPath) => boolean;
+type WriteFile = (path: FSPath, content: string) => void;
 
-type FSLayer = {
+export type FSLayer = {
   MkDir: MkDir,
   FileExists: FileExists,
   WriteFile: WriteFile
