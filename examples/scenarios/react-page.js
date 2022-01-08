@@ -1,12 +1,10 @@
-const path = require('path');
-const { exec, askFor, getArgs } = require('../../src/cli');
+const path = require('path')
+const { exec, askFor, getArgs } = require('../../src/cli')
 // Replace to const { exec, askFor, getArgs } = require('morphogen/lib/cli')
+const TPL = path.join(__dirname, '../templates/ReactPage')
 
-const TPL = path.join(__dirname, '../templates/ReactPage');
-
-async function Scenario() {
-  const argv = getArgs();
-  const [ OUTPUT_PATH_FROM_CLI ] = argv._;
+module.exports = async function (argv) {
+  const [OUTPUT_PATH_FROM_CLI] = argv._
 
   const OUTPUT_PATH = await askFor('Output path', OUTPUT_PATH_FROM_CLI)
 
@@ -19,9 +17,7 @@ async function Scenario() {
   exec({
     TPL_PATH: TPL,
     OUTPUT_PATH: path.join(OUTPUT_PATH)
-  },{
-    PageName,
-  });
+  }, {
+    PageName
+  })
 }
-
-Scenario();

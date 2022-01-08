@@ -1,7 +1,9 @@
+import { Arguments } from "yargs";
+
 export type FSPath = string;
 export type FSItem = string;
 
-export interface Args {
+export interface Args extends Arguments {
   d: FSPath,
 }
 
@@ -30,3 +32,6 @@ export interface WriteFileResult {
   outputPath: FSPath,
   content: string
 }
+
+
+export type ScenarioFunction = (args: Arguments) => void;
