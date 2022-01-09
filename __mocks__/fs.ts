@@ -46,7 +46,7 @@ function readFileSync(file: string, content: 'utf-8') {
 function existsSync(file: string) {
   const dir = path.dirname(file);
   const fileName = path.basename(file);
-  return !!mockFiles?.[dir]?.[fileName];
+  return (!!mockFiles?.[dir]?.[fileName]) || (!!mockFiles?.[path.join(dir, fileName)]);
 }
 
 function statSync(file: string) {
@@ -55,6 +55,27 @@ function statSync(file: string) {
 
   return {
     isDirectory: () => mockFiles[file] ? true : false 
+  }
+}
+
+function mkdirSync(dir: string) {
+  if (!mockFiles[dir]) {
+    mockFiles[dir] = {};
+  }
+}
+
+function rmdirSync(dir: string) {
+  if (mockFiles[dir]) {
+    delete mockFiles[dir];
+  }
+}
+
+function rmSync(file: string) {
+  const dir = path.dirname(file);
+  const fileName = path.basename(file);
+
+  if (mockFiles?.[dir]?.[fileName]) {
+    delete mockFiles[dir][fileName]
   }
 }
 
@@ -75,6 +96,8 @@ fs.existsSync = existsSync;
 fs.writeFileSync = writeFileSync;
 fs.statSync = statSync;
 fs.__cleanFs = __cleanFs;
-
+fs.rmSync = rmSync;
+fs.mkdirSync = mkdirSync;
+fs.rmdirSync = rmdirSync;
 
 module.exports = fs;
