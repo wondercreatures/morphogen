@@ -1,3 +1,4 @@
+import commit from "../fs-layer/fs/commit";
 import { processTemplatesDir, renderTpl } from "../generate";
 import { Config, Context } from "../types";
 
@@ -44,7 +45,9 @@ describe('processTpl test', () => {
       BLOCK_NAME: '/dir/output/append-here.html'
     }
 
-    processTemplatesDir(config, context);
+    const transaction = processTemplatesDir(config, context);
+    commit(transaction);
+    
     const FS_OUTPUT = require('fs').__getMockFileSystem();
 
     expect(FS_OUTPUT[config.OUTPUT_PATH]['file1.html']).toEqual(expectedResult1);

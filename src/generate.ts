@@ -1,4 +1,4 @@
-import { Config, Context, FSItem, FSItemType, FSPath, WriteFileResult } from "./types";
+import { Config, Context, FSItem, FSItemType, FSPath, Settings, WriteFileResult } from "./types";
 import * as Eta from 'eta';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -6,6 +6,9 @@ import * as chalk from 'chalk';
 import { fileWalker } from "./storage";
 import renderBlock from "./generators/renderBlock";
 import renderFileTpl from "./generators/renderFileTpl";
+import FileSystem from "./fs-layer/fs/file-system";
+import Transaction from "./fs-layer/trasactions/transaction";
+import { FSTransaction } from "./fs-layer/types";
 
 /* eslint-disable no-shadow */
 export function renderTpl(path: FSPath, context: Context) {
@@ -20,12 +23,21 @@ export function renderTpl(path: FSPath, context: Context) {
   );
 }
 
-export function processTemplatesDir(config: Config, context: Context) {
+export function processTemplatesDir(config: Config, context: Context, userSettings: Partial<Settings> = {}) {
+  let transaction: FSTransaction = new Transaction([]);
+
+  const setttings: Settings = {
+    FsLayer: FileSystem,
+    ...userSettings,
+  }
+
+  const { FsLayer } = setttings;
+
   const { TPL_PATH, OUTPUT_PATH } = config;
 
-  if (!fs.existsSync(OUTPUT_PATH)) {
-    fs.mkdirSync(OUTPUT_PATH);
-  }
+  if (!FsLayer.FileExists(OUTPUT_PATH)) {
+    transaction = transaction.push(FsLayer.MkDir(OUTPUT_PATH));
+  };
 
   const elements = fileWalker(TPL_PATH);
 
@@ -38,21 +50,25 @@ export function processTemplatesDir(config: Config, context: Context) {
 
     if (type === FSItemType.DIR) {
       const resultPath = path.join(process.cwd(), OUTPUT_PATH, processedFileName);
-      if (!fs.existsSync(resultPath)) {
+      if (!FsLayer.FileExists(resultPath)) {
         console.log(chalk.cyanBright('📁 Creating dir:'), chalk.greenBright(resultPath));
-        fs.mkdirSync(resultPath);
+        transaction = transaction.push(FsLayer.MkDir(resultPath));
       }
     } else if (type === FSItemType.FILE) {
       if (/__BLK__/.test(file)) {
         const { outputPath, content } = renderBlock(file, config, context);
         console.log(chalk.cyanBright('📄 Appending to:'), chalk.greenBright(outputPath));
-        fs.writeFileSync(outputPath, content);
+        transaction = transaction.push(FsLayer.PathFile(outputPath, content));
+        //fs.writeFileSync(outputPath, content);
       } else {
         const { outputPath, content } = renderFileTpl(file, config, context);
         console.log(chalk.cyanBright('📄 Writing to:'), chalk.greenBright(outputPath));
-        fs.writeFileSync(outputPath, content);
+        transaction = transaction.push(FsLayer.WriteFile(outputPath, content));
+        //fs.writeFileSync(outputPath, content);
       }
 
     }
   });
+
+  return transaction;
 }

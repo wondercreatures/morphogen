@@ -24,11 +24,7 @@ export type FSLayer = {
 
 export type FSLayerCommands = keyof FSLayer;
 
-export type FileAction = {
-  type: FSLayerCommands,
-  commit: () => void,
-  decline: () => void
-}
+export type FileAction = TransactionAction
 
 export interface FSTransaction {
   push(...fsPaths: FileAction[]): FSTransaction,

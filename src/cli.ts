@@ -3,6 +3,7 @@ import * as Chalk from 'chalk';
 
 import { processTemplatesDir } from './generate';
 import * as yargs from 'yargs';
+import commit from "./fs-layer/fs/commit";
 
 
 // const yargs = require('yargs/yargs');
@@ -17,7 +18,8 @@ export const getArgs = <ARGS = Args>(): ARGS => {
 }
 
 export async function exec(config: Config, context: Context) {
-  processTemplatesDir(config, context);
+  const transaction = processTemplatesDir(config, context);
+  commit(transaction);
 }
 
 export function askFor<ARGUMENT_TYPE = TplArgument>(description: string, defaultValue?: ARGUMENT_TYPE): Promise<ARGUMENT_TYPE> {
