@@ -33,4 +33,4 @@ export interface FSTransaction {
 }
 
 export type Commit = (transaction: FSTransaction) => FileAction[];
-export type Discard = (fsLayer: FSLayer, transaction: FSTransaction) => void
+export type Discard = (transaction: FSTransaction) => void

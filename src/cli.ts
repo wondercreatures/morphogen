@@ -4,6 +4,8 @@ import * as Chalk from 'chalk';
 import { processTemplatesDir } from './generate';
 import * as yargs from 'yargs';
 import commit from "./fs-layer/fs/commit";
+import discard from "./fs-layer/fs/discard";
+import { FSTransaction } from "./fs-layer/types";
 
 
 // const yargs = require('yargs/yargs');
@@ -18,8 +20,19 @@ export const getArgs = <ARGS = Args>(): ARGS => {
 }
 
 export async function exec(config: Config, context: Context) {
-  const transaction = processTemplatesDir(config, context);
-  commit(transaction);
+  let isCompleate = 'N';
+  let transaction: FSTransaction | undefined;
+  while (isCompleate !== 'y') {
+    if (isCompleate === 'd' && transaction) {
+      discard(transaction);
+    }
+    transaction = processTemplatesDir(config, context);
+    commit(transaction);
+    isCompleate = await askFor('Compleate work? y/d/N', 'N');
+    if (isCompleate !== 'y') {
+      discard(transaction);
+    } 
+  }
 }
 
 export function askFor<ARGUMENT_TYPE = TplArgument>(description: string, defaultValue?: ARGUMENT_TYPE): Promise<ARGUMENT_TYPE> {
