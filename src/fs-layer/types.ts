@@ -1,4 +1,4 @@
-import { FSPath } from "../types"
+import { FSPath } from '../types'
 
 export type TransactionAction = {
   type: FSLayerCommands,
