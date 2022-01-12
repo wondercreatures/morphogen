@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as chalk from 'chalk';
 
 import { getArgs, askFor } from './cli';
+import { ScenarioFunction } from './types';
 
 async function run() {
   const args = getArgs();
@@ -21,7 +22,13 @@ async function run() {
     throw new Error('Wrong scenario number');
   }
 
-  require(path.join(process.cwd(), scenariosDir, elements[scenarioN as number]));
+  const scenarioFunction = require(path.join(process.cwd(), scenariosDir, elements[scenarioN as number])) as ScenarioFunction;
+
+  if (typeof scenarioFunction !== 'function') {
+    throw new Error('Wrong scenario function')
+  }
+
+  scenarioFunction(args);
 }
 
 run();

@@ -7,6 +7,7 @@ interface /*=~ it.PageName */Props {
 export default function /*=~ it.PageName */ ({}: /*=~ it.PageName */Props) {
   return (
     <Wrap>
+      123
     </Wrap>
   );
 }
