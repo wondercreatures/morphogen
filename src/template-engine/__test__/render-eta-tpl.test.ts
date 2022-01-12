@@ -1,5 +1,4 @@
-import { renderTpl } from '../generate'
-
+import { etaRenderTpl } from '../eta';
 jest.mock('fs')
 
 describe('renderTpl test', () => {
@@ -14,6 +13,6 @@ describe('renderTpl test', () => {
   test('Test render basic template', () => {
     const expectedResult = '<html>SomeName</html>'
 
-    expect(renderTpl('/path/to/file1.js', { PageName: 'SomeName' })).toEqual(expectedResult)
+    expect(etaRenderTpl('/path/to/file1.js', { PageName: 'SomeName' })).toEqual(expectedResult)
   })
 })
