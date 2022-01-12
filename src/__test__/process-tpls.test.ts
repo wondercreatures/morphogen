@@ -6,10 +6,10 @@ jest.mock('fs')
 
 describe('processTpl test', () => {
   const MOCK_FILE_INFO = {
-    '/dir/tpls/file1.html': '<html>/*=~ it.PageName */</html>',
-    '/dir/tpls/file2.html': '<html>/*=~ it.Title */</html>',
-    '/dir/tpls/file3.html': '<b>/*=~ \'/*=~ it.BLOCK_NAME */\' */</b>',
-    '/dir/tpls/dir/file3.html': '<b>/*=~ it.Content */</b>',
+    '/dir/tpls/file1.html': '<html>{{PageName}}</html>',
+    '/dir/tpls/file2.html': '<html>{{Title}}</html>',
+    '/dir/tpls/file3.html': '<b>{{#BlockName}}BLOCK_NAME{{/BlockName}}</b>',
+    '/dir/tpls/dir/file3.html': '<b>{{Content}}</b>',
     '/dir/tpls/__RNM__DIR_NAME__/file4.html': 'data',
     '/dir/tpls/__BLK__BLOCK_NAME__.html': 'vallll',
     '/dir/output/append-here.html': 'text before /*{BLOCK_NAME}*/text after',
@@ -27,7 +27,7 @@ describe('processTpl test', () => {
   test('Test render basic template', () => {
     const expectedResult1 = '<html>SomeName</html>'
     const expectedResult2 = '<html>Title</html>'
-    const expectedResult3 = '<b>/*=~ it.BLOCK_NAME */</b>'
+    const expectedResult3 = '<b>{{BLOCK_NAME}}</b>'
     const expectedResult4 = '<b>Content text</b>'
     const expectedResult5 = 'data'
     const expectedResult6 = 'text before vallll/*{BLOCK_NAME}*/text after'

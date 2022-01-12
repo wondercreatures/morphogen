@@ -8,14 +8,14 @@ import renderFileTpl from './generators/renderFileTpl'
 import FileSystem from './fs-layer/fs/file-system'
 import Transaction from './fs-layer/trasactions/transaction'
 import { FSTransaction } from './fs-layer/types'
-import { etaRenderTpl } from './template-engine/eta'
+import { mustacheRenderTpl } from './template-engine/mustache'
 
 export function processTemplatesDir (config: Config, context: Context, userSettings: Partial<Settings> = {}) {
   let transaction: FSTransaction = new Transaction([])
 
   const settings: Settings = {
     FsLayer: FileSystem,
-    TemplateRender: etaRenderTpl,
+    TemplateRender: mustacheRenderTpl,
     ...userSettings
   }
 

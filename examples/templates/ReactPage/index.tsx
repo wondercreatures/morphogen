@@ -1,1 +1,1 @@
-export * from './/*=~ it.PageName */Page';
+export * from './{{&PageName}}Page';
