@@ -1,7 +1,7 @@
-import /*=~ it.PageName */ from ".//*=~ it.PageName */"
+import {{&PageName}} from "./{{&PageName}}"
 
-export default function /*=~ it.PageName */Page() {
+export default function {{&PageName}}Page() {
   return (
-    </*=~ it.PageName *//>
+    <{{&PageName}}/>
   );
 }

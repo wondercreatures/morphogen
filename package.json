@@ -1,15 +1,17 @@
 {
   "name": "morphogen",
-  "version": "1.1.15",
+  "version": "2.0.0",
   "license": "MIT",
   "bin": {
     "morphogen": "lib/bin.js"
   },
   "dependencies": {
     "@types/jest": "^27.0.2",
+    "@types/mustache": "^4.1.2",
     "chalk": "^4.1.2",
     "eta": "^1.12.3",
     "jest": "^27.2.1",
+    "mustache": "^4.2.0",
     "ts-jest": "^27.0.5",
     "yargs": "^17.0.1"
   },
@@ -22,11 +24,14 @@
     "start": "node -r ts-node/register src/bin.ts -d examples/scenarios",
     "start:debug": "node --inspect-brk -r ts-node/register src/bin.ts -d examples/scenarios",
     "build": "tsc",
-    "test": "jest --config jestconfig.json",
+    "test": "jest --config jestconfig.json --runInBand",
     "test:watch": "jest --config jestconfig.json --watch",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "coverage": "npm test -- --coverage --watchAll=false",
-    "install-self": "npm i -G"
+    "install-self": "npm i -G",
+    "lint": "./node_modules/eslint/bin/eslint.js ./src/**/*.ts ./src/**/*.test.ts",
+    "lint:fix": "./node_modules/eslint/bin/eslint.js ./src/**/*.ts --fix",
+    "isok": "yarn coverage & yarn lint"
   },
   "repository": {
     "type": "git",
@@ -35,12 +40,13 @@
   "author": "Yuri Taratorkin",
   "devDependencies": {
     "@types/yargs": "^17.0.3",
-    "@typescript-eslint/eslint-plugin": "^4.28.5",
-    "@typescript-eslint/parser": "^4.28.5",
+    "@typescript-eslint/eslint-plugin": "^5.9.1",
+    "@typescript-eslint/parser": "^5.9.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^25.3.4",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "ts-node": "^10.2.1",
