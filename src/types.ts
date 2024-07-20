@@ -1,6 +1,6 @@
-import { Arguments } from "yargs";
-import { FSLayer } from "./fs-layer/types";
-import { RenderTpl } from "./template-engine/types";
+import { Arguments } from 'yargs'
+import { FSLayer } from './fs-layer/types'
+import { RenderTpl } from './template-engine/types'
 
 export type FSPath = string;
 export type FSItem = string;
@@ -18,7 +18,6 @@ export type TplArgument = string;
 
 export type Context = Record<string, TplArgument>
 
-
 export enum FSItemType {
   DIR = 'DIR',
   FILE = 'FILE'
@@ -29,12 +28,10 @@ export type FilesList = Array<{
   path: FSPath
 }>
 
-
 export interface WriteFileResult {
   outputPath: FSPath,
   content: string
 }
-
 
 export type ScenarioFunction = (args: Arguments) => void;
 

@@ -29,5 +29,5 @@ yarn add morphogen
 ## Run examples
 
 ```
-node index.js -d examples/scenario
+node lib/cli.js -d examples/scenario
 ```
