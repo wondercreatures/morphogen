@@ -3,13 +3,18 @@ import * as fs from 'fs'
 import * as path from 'path'
 import * as chalk from 'chalk'
 
-import { getArgs, askFor } from './cli'
+import { getArgs, askFor, getArgValue } from './cli'
 import { ScenarioFunction } from './types'
 
 async function run () {
   const args = getArgs()
 
   const scenariosDir = args.d || '__morphogen/scenarios'
+
+  if (fs.existsSync(scenariosDir) === false) {
+    console.error(chalk.red(`Scenarios dir "${chalk.bold(scenariosDir)}" not found`))
+    return
+  }
 
   const elements: Array<string> = fs.readdirSync(scenariosDir)
 
