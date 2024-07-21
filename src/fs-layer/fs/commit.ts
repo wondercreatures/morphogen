@@ -1,14 +1,13 @@
-import Transaction from "../trasactions/transaction";
-import { Commit, FSTransaction } from "../types";
+import { Commit, FSTransaction } from '../types'
 
 const commit: Commit = (transaction: FSTransaction) => {
-  const actions = transaction.getAll();
+  const actions = transaction.getAll()
   for (let n = 0; n < actions.length; n++) {
-    const action = actions.slice(n, n + 1)[0];
-    action.commit();
+    const action = actions.slice(n, n + 1)[0]
+    action.commit()
   }
 
-  return transaction.getAll();
+  return transaction.getAll()
 }
 
-export default commit;
+export default commit

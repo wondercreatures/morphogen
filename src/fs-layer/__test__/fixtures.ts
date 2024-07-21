@@ -1,23 +1,23 @@
-import { FileAction } from '../types';
+import { FileAction } from '../types'
 
 export const FileActions: FileAction[] = [{
   type: 'MkDir',
   commit: () => {},
-  decline: () => {},
+  decline: () => {}
 },
 {
   type: 'MkDir',
   commit: () => {},
-  decline: () => {},
-}];
+  decline: () => {}
+}]
 
 export const FileActionExtra: FileAction[] = [{
   type: 'MkDir',
   commit: () => {},
-  decline: () => {},
+  decline: () => {}
 },
 {
   type: 'MkDir',
   commit: () => {},
-  decline: () => {},
-}];
+  decline: () => {}
+}]

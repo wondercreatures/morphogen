@@ -1,10 +1,11 @@
 {
   "name": "morphogen",
-  "version": "2.0.1",
+  "version": "1.2.0",
   "license": "MIT",
   "bin": {
     "morphogen": "lib/bin.js"
   },
+  "main": "lib/cli.js",
   "dependencies": {
     "@types/jest": "^27.0.2",
     "@types/mustache": "^4.1.2",
@@ -29,7 +30,7 @@
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "coverage": "npm test -- --coverage --watchAll=false",
     "install-self": "npm i -G",
-    "lint": "./node_modules/eslint/bin/eslint.js ./src/**/*.ts ./src/**/*.test.ts",
+    "lint": "./node_modules/eslint/bin/eslint.js -- ./src/**/*.ts ./src/**/*.test.ts",
     "lint:fix": "./node_modules/eslint/bin/eslint.js ./src/**/*.ts --fix",
     "isok": "yarn coverage & yarn lint"
   },

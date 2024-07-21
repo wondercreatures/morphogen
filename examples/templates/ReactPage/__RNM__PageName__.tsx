@@ -7,7 +7,7 @@ interface {{&PageName}}Props {
 export default function {{&PageName}} ({}: {{&PageName}}Props) {
   return (
     <Wrap>
-      123
+      123aaaaa54455445
     </Wrap>
   );
 }

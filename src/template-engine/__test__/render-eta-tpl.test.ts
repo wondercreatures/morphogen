@@ -1,4 +1,4 @@
-import { etaRenderTpl } from '../eta';
+import { etaRenderTpl } from '../eta'
 jest.mock('fs')
 
 describe('renderTpl test', () => {

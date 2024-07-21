@@ -10,6 +10,7 @@ export const mustacheRenderTpl: RenderTpl = (path: FSPath, context: Context) => 
 
   const contextWithBlocks = {
     ...context,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     BlockName: () => (text: string, render: any) => {
       return '{{' + text + '}}'
     }

@@ -1,22 +1,14 @@
 const path = require('path')
-const { exec, askFor, getArgs } = require('../../src/cli')
-// Replace to const { exec, askFor, getArgs } = require('morphogen/lib/cli')
-const TPL = path.join(__dirname, '../templates/ReactPage')
+const { exec, getUserArg } = require('../../src/cli')
+// Replace to const { exec, getUserArg } = require('morphogen/lib/cli')
 
-module.exports = async function (argv) {
-  const [OUTPUT_PATH_FROM_CLI] = argv._
-
-  const OUTPUT_PATH = await askFor('Output path', OUTPUT_PATH_FROM_CLI)
-
-  if (!OUTPUT_PATH) {
-    throw new Error('Require outputPath')
-  }
-
-  const PageName = await askFor('Page name')
+module.exports = async function () {
+  const OUTPUT_PATH = await getUserArg('path', 'Output path', 'src/pages')
+  const PageName = await getUserArg('pageName', 'Page name')
 
   exec({
-    TPL_PATH: TPL,
-    OUTPUT_PATH: path.join(OUTPUT_PATH)
+    TPL_PATH: path.join(__dirname, '../templates/ReactPage'),
+    OUTPUT_PATH
   }, {
     PageName
   })
