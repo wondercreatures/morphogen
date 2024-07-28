@@ -33,7 +33,11 @@ export interface WriteFileResult {
   content: string
 }
 
-export type ScenarioFunction = (args: Arguments) => void;
+// TODO implement
+export type ScenarioConfig = Record<string, string>
+
+export type ScenarioFunction = (args: Arguments, config: ScenarioConfig) => void;
+export type PrepareArgsFunction<Args> = (args: Arguments, config: ScenarioConfig) => Promise<Args>;
 
 export type Settings = {
   FsLayer: FSLayer,

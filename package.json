@@ -22,8 +22,10 @@
     "dev-tools"
   ],
   "scripts": {
-    "start": "node -r ts-node/register src/bin.ts -d examples/scenarios",
-    "start:debug": "node --inspect-brk -r ts-node/register src/bin.ts -d examples/scenarios",
+    "start": "node -r ts-node/register src/bin.ts -d examples",
+    "start:scenario": "node -r ts-node/register src/bin.ts -d examples -s react-page",
+    "start:scenario:debug": "node --inspect-brk -r ts-node/register src/bin.ts -d examples -s react-page",
+    "start:debug": "node --inspect-brk -r ts-node/register src/bin.ts -d examples",
     "build": "tsc",
     "test": "jest --config jestconfig.json --runInBand",
     "test:watch": "jest --config jestconfig.json --watch",
