@@ -35,10 +35,10 @@ async function run () {
 
   const elements: Array<string> = fs.readdirSync(argv.scenariosDir)
 
-  console.log(chalk.bgGray('Available scenarios: [scenarioName] full-path'))
+  console.log(`${chalk.bgGray('Available scenarios:')} ${chalk.greenBright('$command')} ${chalk.gray('$full-path')}`)
   if (!argv.scenarioName) {
     elements.forEach((s) => {
-      console.log(`-s ${s.split('.').slice(0, -1).join('.')} ${chalk.green(path.join(argv.scenariosDir, s))}`)
+      console.log(`${chalk.greenBright(`npx morphogen -s ${chalk.bold(s.split('.').slice(0, -1).join('.'))}`)} ${chalk.gray(path.join(argv.scenariosDir, s))}`)
     })
     return
   }
